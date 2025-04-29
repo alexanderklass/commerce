@@ -1,14 +1,13 @@
 export default {
   basePath: "/commerce",
   output: "export",
-  /*
+
   experimental: {
     ppr: false,
     inlineCss: true,
     useCache: true,
   },
 
-   */
   images: {
     formats: ["image/avif", "image/webp"],
     unoptimized: true,
