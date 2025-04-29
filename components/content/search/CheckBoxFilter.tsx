@@ -1,5 +1,5 @@
 "use client";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Checkbox } from "../../ui/checkbox";
 import { useRouter, useSearchParams } from "next/navigation";
 import type { PathFilterItem } from "@/components/layout/search/filter";
 import { createUrl } from "@/lib/utils";

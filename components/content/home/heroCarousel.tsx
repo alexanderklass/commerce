@@ -6,7 +6,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel";
+} from "../../ui/carousel";
 import hero_background from "@/src/hero-background.jpg";
 type heroCarouselProps = {
   products: any;

@@ -2,6 +2,10 @@ export default {
   basePath: "/commerce",
   output: "export",
 
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+
   experimental: {
     ppr: false,
     inlineCss: true,

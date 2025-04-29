@@ -5,7 +5,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "../../ui/select";
 import { usePathname, useSearchParams } from "next/navigation";
 import { createUrl } from "@/lib/utils";
 import { useRouter } from "next/navigation";
