@@ -1,11 +1,17 @@
-import productFragment from '../fragments/product';
-import seoFragment from '../fragments/seo';
+import productFragment from "../fragments/product";
+import seoFragment from "../fragments/seo";
 
 const collectionFragment = /* GraphQL */ `
   fragment collection on Collection {
     handle
     title
     description
+    image {
+      url
+      altText
+      width
+      height
+    }
     seo {
       ...seo
     }

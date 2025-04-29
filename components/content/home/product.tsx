@@ -1,20 +1,22 @@
 import Image from "next/image";
 import Link from "next/link";
-
+import placeholder from "@/src/placeholder.png";
 type newProductProps = {
   product: any;
   newProduct?: boolean;
 };
 
-export default function NewsProduct({ product, newProduct }: newProductProps) {
+export default function Product({ product, newProduct }: newProductProps) {
+  //TODO Implement quick buy function
   return (
-    <div
+    <Link
+      href={`/product/${product.handle}`}
       className={
-        "rounded-lg w-[324px] relative bg-white overflow-hidden hover:shadow-xl transition-all duration-300 shadow-lg"
+        "rounded-lg w-full relative bg-white overflow-hidden hover:shadow-xl transition-all duration-300 shadow-lg"
       }
     >
       <p
-        className={`${newProduct ? "block" : "hidden"}bg-black text-white z-10 py-1 px-2 absolute top-2 left-2 font-bold rounded-md text-sm`}
+        className={`${!newProduct && "hidden"} bg-black text-white z-10 py-1 px-2 absolute top-2 left-2 font-bold rounded-md text-sm`}
       >
         Neu
       </p>
@@ -22,7 +24,7 @@ export default function NewsProduct({ product, newProduct }: newProductProps) {
         <Image
           className={"object-cover"}
           fill
-          src={product.featuredImage?.url}
+          src={product.featuredImage?.url || placeholder}
           alt={`${product.handle}`}
         />
       </div>
@@ -38,16 +40,15 @@ export default function NewsProduct({ product, newProduct }: newProductProps) {
           <p className={"font-bold"}>
             {product.priceRange.minVariantPrice.amount} €
           </p>
-          <Link
-            href={`/product/${product.handle}`}
+          <button
             className={
               "rounded-md hover:bg-gray-200 transition-all duration-300 px-4 py-2 cursor-pointer"
             }
           >
             + Hinzufügen
-          </Link>
+          </button>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
