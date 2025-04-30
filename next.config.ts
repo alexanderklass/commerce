@@ -1,5 +1,6 @@
 export default {
   basePath: "/commerce",
+  output: "export",
 
   typescript: {
     ignoreBuildErrors: true,
