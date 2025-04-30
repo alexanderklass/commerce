@@ -3,6 +3,7 @@ import { sorting } from "lib/constants";
 import ChildrenWrapper from "./children-wrapper";
 import SelectSortBy from "@/components/content/search/SelectSortBy";
 import { CheckBoxFilterList } from "@/components/content/search/CheckBoxFilterList";
+import { Suspense } from "react";
 
 export default function SearchLayout({
   children,
@@ -13,13 +14,19 @@ export default function SearchLayout({
     <div className="bg-white">
       <div className="mx-auto flex w-[1400px] flex-col gap-8 pt-12 md:flex-row">
         <div className="">
-          <CheckBoxFilterList />
+          <Suspense fallback={null}>
+            <CheckBoxFilterList />
+          </Suspense>
         </div>
         <div className="w-full">
-          <ChildrenWrapper>{children}</ChildrenWrapper>
+          <Suspense fallback={null}>
+            <ChildrenWrapper>{children}</ChildrenWrapper>
+          </Suspense>
         </div>
         <div className="">
-          <SelectSortBy list={sorting} />
+          <Suspense fallback={null}>
+            <SelectSortBy list={sorting} />
+          </Suspense>
         </div>
       </div>
     </div>
