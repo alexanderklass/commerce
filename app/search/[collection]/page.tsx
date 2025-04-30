@@ -23,6 +23,7 @@ export async function generateMetadata(props: {
   };
 }
 
+
 export default async function CategoryPage(props: {
   params: Promise<{ collection: string }>;
   searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
