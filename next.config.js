@@ -1,4 +1,6 @@
-export default {
+/** @type {import('next').NextConfig} */
+
+const nextConfig = {
   basePath: "/commerce",
   output: "export",
 
@@ -24,3 +26,6 @@ export default {
     ],
   },
 };
+
+module.exports = nextConfig;
+
