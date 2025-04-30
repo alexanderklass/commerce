@@ -3,13 +3,6 @@ import { defaultSort, sorting } from "lib/constants";
 import { getProducts } from "lib/shopify";
 import Product from "../../components/content/home/product";
 
-export async function generateStaticParams() {
-  const collections = await getCollections();
-  return collections.map((collection) => ({
-    collection: collection.handle || 'all'
-  }));
-}
-
 export const metadata = {
   title: "Search",
   description: "Search for products in the store.",

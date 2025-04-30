@@ -6,12 +6,8 @@ import Grid from "components/grid";
 import { defaultSort, sorting } from "lib/constants";
 import Product from "@/components/content/home/product";
 
-export async function generateStaticParams() {
-  const collections = await getCollections();
-  return collections.map((collection) => ({
-    collection: collection.handle || 'all'
-  }));
-}
+export const dynamic = 'force-static';
+export const revalidate = false;
 
 export async function generateMetadata(props: {
   params: Promise<{ collection: string }>;
