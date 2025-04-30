@@ -4,6 +4,12 @@ import { getCollection } from 'lib/shopify';
 export const dynamic = 'force-static';
 export const revalidate = false;
 
+export async function generateStaticParams() {
+  const collections = await getCollections();
+  return collections.map((collection) => ({
+    collection: collection.path
+  }));
+}
 
 export default async function Image({
   params
