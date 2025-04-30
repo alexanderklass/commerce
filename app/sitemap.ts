@@ -7,7 +7,9 @@ type Route = {
   lastModified: string;
 };
 
-export const dynamic = 'force-dynamic';
+//export const dynamic = 'force-dynamic';
+export const dynamic = 'force-static';
+export const revalidate = false;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   validateEnvironmentVariables();
