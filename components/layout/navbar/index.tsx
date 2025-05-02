@@ -1,10 +1,10 @@
 import CartModal from "components/cart/modal";
 import LogoSquare from "components/logo-square";
 import { getMenu } from "lib/shopify";
-import { Menu } from "lib/shopify/types";
 import Link from "next/link";
 import { Suspense } from "react";
 import MobileMenu from "./mobile-menu";
+import NavHoverMenu from "@/components/layout/navbar/nav-hover-menu";
 const { SITE_NAME } = process.env;
 
 export async function Navbar() {
@@ -30,25 +30,7 @@ export async function Navbar() {
             </div>
           </Link>
           <div className="flex">
-            {menu.length ? (
-              <ul className="hidden gap-6 text-md md:flex md:items-center">
-                {menu.map((item: Menu) => {
-                  //TODO create component
-                  if (item.items) return <button key={item.title} className={"text-neutral-700 cursor-pointer"}>{item.title}</button>;
-                  return (
-                    <li key={item.title}>
-                      <Link
-                        href={item.path}
-                        prefetch={true}
-                        className="text-neutral-700 underline-offset-4 hover:text-black hover:underline"
-                      >
-                        {item.title}
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
-            ) : null}
+            {menu.length ? <NavHoverMenu menuList={menu} /> : null}
           </div>
           <div className="flex">
             <CartModal />

@@ -1,4 +1,4 @@
-import { getCollections } from "../../../lib/shopify";
+import { getCollections } from "@/lib/shopify";
 import CategoriesProduct from "./categoriesProduct";
 
 export async function Categories() {
@@ -9,13 +9,15 @@ export async function Categories() {
       category.title.toLowerCase() !== "startseite" &&
       category.title.toLowerCase() !== "all" &&
       category.title.toLowerCase() !== "digital goods vat tax" &&
-      category.title.toLowerCase() !== "new-products",
+      category.title.toLowerCase() !== "new-products" &&
+      category.title.toLowerCase() !== "lattafa" &&
+      category.title.toLowerCase() !== "featured-products",
   );
   //TODO Configure here collection
   return (
     <section
       className={
-        "w-full flex items-center justify-center flex-col gap-y-10 bg-white py-16"
+        "w-full flex items-center justify-center flex-col gap-y-10 bg-gray-100 py-16"
       }
     >
       <p className={"text-4xl font-bold text-black text-center"}>

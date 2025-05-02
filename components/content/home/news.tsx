@@ -1,4 +1,4 @@
-import { getCollectionProducts } from "../../../lib/shopify";
+import { getCollectionProducts } from "@/lib/shopify";
 import Link from "next/link";
 import NewsProduct from "./product";
 
@@ -8,7 +8,6 @@ export async function News() {
   });
 
   const products = [
-    ...newestProducts,
     ...newestProducts,
   ];
 
@@ -21,7 +20,7 @@ export async function News() {
     >
       <div
         className={
-          "w-[1400px] gap-y-10 flex flex-col items-center justify-center"
+          "w-[1400px] gap-y-10 flex flex-col items-start justify-center"
         }
       >
         <div className={"flex w-full items-center justify-between"}>

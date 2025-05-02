@@ -1,6 +1,9 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import placeholder from "@/src/placeholder.png";
+
 type newProductProps = {
   product: any;
   newProduct?: boolean;
@@ -8,11 +11,17 @@ type newProductProps = {
 
 export default function Product({ product, newProduct }: newProductProps) {
   //TODO Implement quick buy function
+  const [hoveredImage, setHoveredImage] = useState(product.featuredImage?.url);
+
+  const handleImageChangeOnHover = () => {
+    if (product.images.length > 1) {
+      setHoveredImage(product.images[1]?.url);
+    }
+  };
   return (
-    <Link
-      href={`/product/${product.handle}`}
+    <div
       className={
-        "rounded-lg w-full relative bg-white overflow-hidden hover:shadow-xl transition-all duration-300 shadow-lg"
+        "rounded-lg w-full relative bg-white overflow-hidden hover:-translate-y-5 hover:shadow-xl transition-all duration-300 shadow-lg"
       }
     >
       <p
@@ -20,13 +29,19 @@ export default function Product({ product, newProduct }: newProductProps) {
       >
         Neu
       </p>
-      <div className={"relative h-[300px]"}>
-        <Image
-          className={"object-cover"}
-          fill
-          src={product.featuredImage?.url || placeholder}
-          alt={`${product.handle}`}
-        />
+      <div
+        onMouseEnter={handleImageChangeOnHover}
+        onMouseLeave={() => setHoveredImage(product.featuredImage?.url)}
+        className={"relative h-[300px] bg-gray-200"}
+      >
+        <Link href={`/product/${product.handle}`}>
+          <Image
+            className={"object-cover transition-all duration-300"}
+            fill
+            src={hoveredImage || placeholder}
+            alt={`${product.handle}`}
+          />
+        </Link>
       </div>
       <div
         className={
@@ -49,6 +64,6 @@ export default function Product({ product, newProduct }: newProductProps) {
           </button>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }

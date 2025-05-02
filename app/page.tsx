@@ -1,6 +1,8 @@
-import { Hero } from "../components/content/home/hero";
-import { Categories } from "../components/content/home/categories";
-import { News } from "../components/content/home/news";
+import { Hero } from "@/components/content/home/hero";
+import { Categories } from "@/components/content/home/categories";
+import { News } from "@/components/content/home/news";
+import OrderBenefits from "@/components/content/home/orderBenefits";
+import FeaturedProducts from "@/components/content/home/featuredProducts";
 
 export const metadata = {
   description:
@@ -15,6 +17,8 @@ export default function HomePage() {
     <div className="flex flex-col items-center justify-center">
       <Hero />
       <Categories />
+      <OrderBenefits />
+      <FeaturedProducts/>
       <News />
     </div>
   );

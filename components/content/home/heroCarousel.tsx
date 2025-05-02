@@ -8,25 +8,31 @@ import {
   CarouselPrevious,
 } from "../../ui/carousel";
 import hero_background from "@/src/hero-background.jpg";
+import Link from "next/link";
+
 type heroCarouselProps = {
   products: any;
 };
 
 export default function HeroCarousel({ products }: heroCarouselProps) {
   return (
-    <Carousel>
+    <Carousel className={"relative"}>
       <CarouselContent className={"h-[750px]"}>
         {products.map((product: any, index: number) => (
           <CarouselItem key={index}>
-            <Image
-              className={"object-cover"}
-              src={hero_background}
-              alt={product.title}
-            />
+            <Link href={product.path || "#"}>
+              <Image
+                className={"object-cover w-full h-full"}
+                src={product.image?.url || hero_background}
+                alt={product.title}
+                width={1920}
+                height={1080}
+              />
+            </Link>
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious className={"left-5"} />
+      <CarouselPrevious className={"left-5 bg-black text-white"} />
       <CarouselNext className={"right-5 bg-black text-white"} />
     </Carousel>
   );

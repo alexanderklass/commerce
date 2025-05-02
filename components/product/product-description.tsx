@@ -6,7 +6,13 @@ import ProductAmountCounter from "./productAmountCounter";
 import StandardInfo from "./standardInfo";
 import DropDownMenu from "./drop-down-menu";
 
-export function ProductDescription({ product }: { product: Product }) {
+export function ProductDescription({
+  product,
+  featuredProduct,
+}: {
+  product: Product;
+  featuredProduct?: boolean;
+}) {
   const splitDescription = product.description?.split(";");
   const productIntro = splitDescription[0];
   const productDetails = splitDescription[1];
@@ -14,7 +20,7 @@ export function ProductDescription({ product }: { product: Product }) {
   const sustainability = splitDescription[3];
   const warnings = splitDescription[4];
   return (
-    <>
+    <div>
       <div className="flex flex-col">
         <h1 className="mb-2 text-black text-3xl font-medium">
           {product.title}
@@ -33,12 +39,14 @@ export function ProductDescription({ product }: { product: Product }) {
         <AddToCart product={product} />
       </div>
       <StandardInfo />
-      <div className="flex flex-col gap-y-5">
+      <div className={`${featuredProduct && "hidden"} flex flex-col gap-y-5`}>
         <DropDownMenu title={"Duftnote"}>{productDetails}</DropDownMenu>
         <DropDownMenu title={"Inhaltsstoffe"}>{ingredients}</DropDownMenu>
-        <DropDownMenu title={"Zusätzliche Produktinformationen"}>{sustainability}</DropDownMenu>
+        <DropDownMenu title={"Zusätzliche Produktinformationen"}>
+          {sustainability}
+        </DropDownMenu>
         <DropDownMenu title={"Warnhinweise"}>{warnings}</DropDownMenu>
       </div>
-    </>
+    </div>
   );
 }

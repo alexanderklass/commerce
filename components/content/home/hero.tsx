@@ -1,15 +1,22 @@
-import Image from "next/image";
 import HeroCarousel from "./heroCarousel";
-import { getCollectionProducts } from "lib/shopify";
+import { getCollectionProducts, getCollections } from "lib/shopify";
 
 export async function Hero() {
-  const hero_products = await getCollectionProducts({
-    collection: "hero-section",
+  const collectionList = await getCollections();
+  const hideCollections = collectionList.filter((item) => {
+    const title = item.title.toLowerCase();
+    return (
+      title !== "hero-section" &&
+      title !== "new-products" &&
+      title !== "digital goods vat tax" &&
+      title !== "startseite" &&
+      title !== "lattafa" &&
+      title !== "all"
+    );
   });
-
   return (
-    <section className={"bg-gray-100"}>
-      <HeroCarousel products={hero_products} />
+    <section className={"bg-gray-100 w-full"}>
+      <HeroCarousel products={hideCollections} />
     </section>
   );
 }
