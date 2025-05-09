@@ -20,22 +20,31 @@ function SelectSortBy({ list }: SortBy) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const q = searchParams.get("q");
+  const filters = searchParams.getAll("filter");
 
   const handleValueChange = (selectedSlug: string) => {
     const selectedItem = list.find((item) => item.slug === selectedSlug);
     if (!selectedItem) return;
-    const href = createUrl(
-      pathname,
-      new URLSearchParams({
-        ...(q && { q }),
-        ...(selectedSlug && { sort: selectedSlug }),
-      }),
-    );
+
+    const newParams = new URLSearchParams();
+
+    if (q) newParams.append("q", q);
+
+    if (selectedSlug) newParams.append("sort", selectedSlug);
+
+    filters.forEach((filter) => {
+      newParams.append("filter", filter);
+    });
+
+    const href = createUrl(pathname, newParams);
     router.push(href);
   };
 
   return (
-    <Select onValueChange={(value: any) => handleValueChange(value)}>
+    <Select
+      value={searchParams.get("sort") || ""}
+      onValueChange={(value: any) => handleValueChange(value)}
+    >
       <SelectTrigger className={"w-[180px] text-md"}>
         <SelectValue placeholder={"Sortieren nach"} />
       </SelectTrigger>

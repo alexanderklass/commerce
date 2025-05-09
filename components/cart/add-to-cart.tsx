@@ -6,7 +6,6 @@ import { addItem } from "components/cart/actions";
 import { useProduct } from "components/product/product-context";
 import { Product, ProductVariant } from "lib/shopify/types";
 import { useActionState } from "react";
-import { useCart } from "./cart-context";
 
 function SubmitButton({
   availableForSale,
@@ -53,9 +52,14 @@ function SubmitButton({
   );
 }
 
-export function AddToCart({ product }: { product: Product }) {
+export function AddToCart({
+  product,
+  quantity,
+}: {
+  product: Product;
+  quantity: number;
+}) {
   const { variants, availableForSale } = product;
-  const { addCartItem } = useCart();
   const { state } = useProduct();
   const [message, formAction] = useActionState(addItem, null);
 
@@ -66,16 +70,15 @@ export function AddToCart({ product }: { product: Product }) {
   );
   const defaultVariantId = variants.length === 1 ? variants[0]?.id : undefined;
   const selectedVariantId = variant?.id || defaultVariantId;
-  const addItemAction = formAction.bind(null, selectedVariantId);
-  const finalVariant = variants.find(
-    (variant) => variant.id === selectedVariantId,
-  )!;
 
   return (
     <form
       action={async () => {
-        addCartItem(finalVariant, product);
-        addItemAction();
+        if (!selectedVariantId) return;
+        formAction({
+          selectedVariantId: selectedVariantId,
+          quantity: quantity,
+        });
       }}
     >
       <SubmitButton

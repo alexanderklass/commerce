@@ -15,14 +15,15 @@ export default function CheckBoxFilter({ list }: CheckBoxFilterProps) {
 
   const handleValueSelect = async (checked: boolean, selectedPath: string) => {
     const newParams = new URLSearchParams(searchParams.toString());
+    const collectionHandle = `collection:${selectedPath}`;
 
     if (checked) {
-      newParams.append("filter", selectedPath);
+      newParams.append("filter", collectionHandle);
     } else {
       const currentFilters = newParams.getAll("filter");
       newParams.delete("filter");
       currentFilters
-        .filter((filter) => filter !== selectedPath)
+        .filter((filter) => filter !== collectionHandle)
         .forEach((filter) => newParams.append("filter", filter));
     }
 
@@ -32,12 +33,12 @@ export default function CheckBoxFilter({ list }: CheckBoxFilterProps) {
 
   const isFilterActive = (path: string) => {
     const activeFilters = searchParams.getAll("filter");
-    return activeFilters.includes(path);
+    return activeFilters.includes(`collection:${path}`);
   };
 
   newParams.delete("q");
   return (
-    <>
+    <div className={"w-[180px]"}>
       {list.map((item: PathFilterItem) => (
         <div
           key={item.path}
@@ -53,6 +54,6 @@ export default function CheckBoxFilter({ list }: CheckBoxFilterProps) {
           />
         </div>
       ))}
-    </>
+    </div>
   );
 }

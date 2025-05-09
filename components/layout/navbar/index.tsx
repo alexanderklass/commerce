@@ -10,7 +10,7 @@ const { SITE_NAME } = process.env;
 export async function Navbar() {
   const menu = await getMenu("main-menu");
   return (
-    <nav className="sticky top-0 z-10 left-0 right-0 bg-white flex w-full items-center justify-center text-black p-4 lg:px-6">
+    <nav className="sticky top-0 z-20 left-0 right-0 bg-white flex w-full items-center justify-center text-black p-4 lg:px-6">
       <div className={"flex items-center sm:w-[1400px] justify-between"}>
         <div className="block flex-none md:hidden">
           <Suspense fallback={null}>

@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import placeholder from "@/src/placeholder.png";
 
@@ -13,6 +14,9 @@ export default function Product({ product, newProduct }: newProductProps) {
   //TODO Implement quick buy function
   const [hoveredImage, setHoveredImage] = useState(product.featuredImage?.url);
 
+  const handleOnMouseLeave = () => {
+    setHoveredImage(product.featuredImage?.url);
+  };
   const handleImageChangeOnHover = () => {
     if (product.images.length > 1) {
       setHoveredImage(product.images[1]?.url);
@@ -31,16 +35,26 @@ export default function Product({ product, newProduct }: newProductProps) {
       </p>
       <div
         onMouseEnter={handleImageChangeOnHover}
-        onMouseLeave={() => setHoveredImage(product.featuredImage?.url)}
-        className={"relative h-[300px] bg-gray-200"}
+        onMouseLeave={handleOnMouseLeave}
+        className={`relative h-[300px] bg-gray-200`}
       >
         <Link href={`/product/${product.handle}`}>
-          <Image
-            className={"object-cover transition-all duration-300"}
-            fill
-            src={hoveredImage || placeholder}
-            alt={`${product.handle}`}
-          />
+          <AnimatePresence>
+            <motion.div
+              key={hoveredImage || placeholder}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Image
+                className={`object-cover transition-all duration-300`}
+                fill
+                src={hoveredImage || placeholder}
+                alt={`${product.handle}`}
+              />
+            </motion.div>
+          </AnimatePresence>
         </Link>
       </div>
       <div

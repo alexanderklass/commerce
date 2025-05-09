@@ -3,5 +3,11 @@ import CheckBoxFilter from "@/components/content/search/CheckBoxFilter";
 
 export async function CheckBoxFilterList() {
   const collections = await getCollections();
-  return <CheckBoxFilter list={collections} />;
+
+  const formattedCollections = collections.map((collection) => ({
+    title: collection.title,
+    path: collection.handle,
+  }));
+
+  return <CheckBoxFilter list={formattedCollections} />;
 }

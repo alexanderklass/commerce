@@ -1,3 +1,5 @@
+"use client";
+import { useState } from "react";
 import { AddToCart } from "components/cart/add-to-cart";
 import Price from "components/price";
 import { Product } from "lib/shopify/types";
@@ -13,6 +15,7 @@ export function ProductDescription({
   product: Product;
   featuredProduct?: boolean;
 }) {
+  const [quantityCounter, setQuantityCounter] = useState(1);
   const splitDescription = product.description?.split(";");
   const productIntro = splitDescription[0];
   const productDetails = splitDescription[1];
@@ -35,8 +38,12 @@ export function ProductDescription({
       </div>
       <VariantSelector options={product.options} variants={product.variants} />
       <div className="flex flex-row gap-x-3">
-        <ProductAmountCounter />
-        <AddToCart product={product} />
+        <ProductAmountCounter
+          availableForSale={product.availableForSale}
+          quantity={quantityCounter}
+          handleAmountChange={setQuantityCounter}
+        />
+        <AddToCart quantity={quantityCounter} product={product} />
       </div>
       <StandardInfo />
       <div className={`${featuredProduct && "hidden"} flex flex-col gap-y-5`}>
