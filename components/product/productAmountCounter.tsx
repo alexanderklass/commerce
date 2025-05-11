@@ -14,7 +14,6 @@ export default function ProductAmountCounter({
   availableForSale,
 }: ProductAmountCounterProps) {
   //TODO implement max amount from product availability
-
   const countUp = () => {
     handleAmountChange((prevState: number) => prevState + 1);
   };
