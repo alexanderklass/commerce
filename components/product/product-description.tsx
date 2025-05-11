@@ -15,6 +15,9 @@ export function ProductDescription({
   product: Product;
   featuredProduct?: boolean;
 }) {
+  const [selectedPrice, setSelectedPrice] = useState(
+    product.priceRange.maxVariantPrice.amount,
+  );
   const [quantityCounter, setQuantityCounter] = useState(1);
   const splitDescription = product.description?.split(";");
   const productIntro = splitDescription[0];
@@ -28,15 +31,19 @@ export function ProductDescription({
         <h1 className="mb-2 text-black text-3xl font-medium">
           {product.title}
         </h1>
-        <div className="mr-auto mb-5 w-auto text-lg font-bold text-black">
+        <div className="mr-auto mb-5 relative w-auto text-lg font-bold text-black">
           <Price
-            amount={product.priceRange.maxVariantPrice.amount}
+            amount={selectedPrice}
             currencyCode={product.priceRange.maxVariantPrice.currencyCode}
           />
         </div>
         <div className={"text-gray-700"}>{productIntro}</div>
       </div>
-      <VariantSelector options={product.options} variants={product.variants} />
+      <VariantSelector
+        options={product.options}
+        setCurrentPrice={setSelectedPrice}
+        variants={product.variants}
+      />
       <div className="flex flex-row gap-x-3">
         <ProductAmountCounter
           availableForSale={product.availableForSale}

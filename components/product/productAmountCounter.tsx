@@ -39,7 +39,7 @@ export default function ProductAmountCounter({
       </button>
       <AnimatePresence>
         <div
-          className={`border-t ${!availableForSale ? "border-gray-300" : "border-black"} overflow-hidden border-b py-2 text-center w-12`}
+          className={`border-t ${!availableForSale ? "border-gray-300" : "border-black"} relative overflow-hidden border-b py-2 text-center w-12`}
         >
           <motion.div
             key={quantity}

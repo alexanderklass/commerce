@@ -13,9 +13,11 @@ type Combination = {
 export function VariantSelector({
   options,
   variants,
+  setCurrentPrice,
 }: {
   options: ProductOption[];
   variants: ProductVariant[];
+  setCurrentPrice: any;
 }) {
   const { state, updateOption } = useProduct();
   const updateURL = useUpdateURL();
@@ -39,16 +41,38 @@ export function VariantSelector({
     ),
   }));
 
-  return options.map((option) => (
+  const firstOption = options[0];
+  if (!firstOption) return;
+  const modifiedOptions = [
+    {
+      ...firstOption,
+      values: firstOption.values.map((optionValue) => {
+        const matchingVariant = variants.find((variant) =>
+          variant.selectedOptions.some(
+            (option) =>
+              option.value === optionValue && option.name === firstOption.name,
+          ),
+        );
+
+        return {
+          value: optionValue,
+          price: matchingVariant?.price,
+        };
+      }),
+    },
+  ];
+
+  return modifiedOptions.map((option) => (
     <form className={"text-black"} key={option.id}>
       <dl className="mb-8">
         <dt className="mb-4 text-sm uppercase tracking-wide">{option.name}</dt>
-        <dd className="flex flex-wrap gap-3">
-          {option.values.map((value) => {
+        <dd className="flex flex-wrap gap-2">
+          {option.values.map((item) => {
             const optionNameLowerCase = option.name.toLowerCase();
-            // Base option params on current selectedOptions so we can preserve any other param state.
-            const optionParams = { ...state, [optionNameLowerCase]: value };
-            // Filter out invalid options and check if the option combination is available for sale.
+            const optionParams = {
+              ...state,
+              [optionNameLowerCase]: item.value,
+            };
             const filtered = Object.entries(optionParams).filter(
               ([key, value]) =>
                 options.find(
@@ -64,21 +88,24 @@ export function VariantSelector({
               ),
             );
 
-            // The option is active if it's in the selected options.
-            const isActive = state[optionNameLowerCase] === value;
+            const isActive = state[optionNameLowerCase] === item.value;
 
             return (
               <button
                 formAction={() => {
-                  const newState = updateOption(optionNameLowerCase, value);
+                  const newState = updateOption(
+                    optionNameLowerCase,
+                    item.value,
+                  );
+                  setCurrentPrice(item.price?.amount);
                   updateURL(newState);
                 }}
-                key={value}
+                key={item.value}
                 aria-disabled={!isAvailableForSale}
                 disabled={!isAvailableForSale}
-                title={`${option.name} ${value}${!isAvailableForSale ? " (Out of Stock)" : ""}`}
+                title={`${option.name} ${item.value}${!isAvailableForSale ? " (Out of Stock)" : ""}`}
                 className={clsx(
-                  "flex min-w-[48px] cursor-pointer h-12 items-center justify-center rounded-md border px-2 py-1 text-sm",
+                  "flex min-w-[48px] cursor-pointer h-12 items-center justify-center rounded-md border p-7 text-sm",
                   {
                     "cursor-default ring-2 ring-blue-600 bg-blue-50": isActive,
                     "ring-1 ring-transparent transition duration-300 ease-in-out hover:ring-blue-600":
@@ -88,7 +115,10 @@ export function VariantSelector({
                   },
                 )}
               >
-                {value}
+                <div className={"flex flex-col"}>
+                  <p className={"font-bold text-base"}>{item.value}</p>
+                  <p className={"text-gray-700"}>€{item.price?.amount}</p>
+                </div>
               </button>
             );
           })}
