@@ -1,7 +1,7 @@
 "use client";
 
-import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import clsx from "clsx";
+import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import { addItem } from "components/cart/actions";
 import { useProduct } from "components/product/product-context";
 import { Product, ProductVariant } from "lib/shopify/types";

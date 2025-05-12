@@ -4,7 +4,7 @@ import { ProductProvider } from "@/components/product/product-context";
 import { ProductDescription } from "@/components/product/product-description";
 import { getCollectionProducts } from "@/lib/shopify";
 import SlideInAnimation from "@/components/content/home/SlideInAnimation";
-
+import placeholder from "@/src/placeholder.png";
 async function FeaturedProducts() {
   const products = await getCollectionProducts({
     collection: "featured-products",
@@ -37,7 +37,7 @@ async function FeaturedProducts() {
                         className={"w-fit h-[500px] object-contain"}
                         width={40}
                         height={40}
-                        src={product.featuredImage?.url}
+                        src={product.featuredImage?.url || placeholder}
                         alt={product.handle}
                       />
                     </div>

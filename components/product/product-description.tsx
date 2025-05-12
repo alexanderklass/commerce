@@ -53,7 +53,7 @@ export function ProductDescription({
       <div className="flex flex-col">
         <div>
           <Link
-            className={"text-gray-500 underline underline-offset-2"}
+            className={"text-gray-500 underline uppercase underline-offset-2"}
             href={URL}
           >
             {collectionTitle}
