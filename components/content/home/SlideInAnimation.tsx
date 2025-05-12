@@ -13,7 +13,7 @@ function SlideInAnimation({ children, index }: SlideInAnimationProps) {
       initial={{ x: index === 0 ? 300 : -300, opacity: 0 }}
       whileInView={{ x: 0, opacity: 1 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.5, ease: "easeInOut", delay: 0.5 }}
+      transition={{ duration: 0.5, ease: "easeInOut", delay: 0.2 }}
     >
       {children}
     </motion.div>

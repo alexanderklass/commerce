@@ -5,11 +5,13 @@ const Price = ({
   className,
   currencyCode = "USD",
   currencyCodeClassName,
+  priceInLiters,
 }: {
   amount: string;
   className?: string;
   currencyCode: string;
   currencyCodeClassName?: string;
+  priceInLiters: string | null;
 } & React.ComponentProps<"p">) => {
   return (
     <AnimatePresence mode={"wait"} initial={false}>
@@ -30,6 +32,9 @@ const Price = ({
         <span
           className={clsx("ml-1 inline", currencyCodeClassName)}
         >{`${currencyCode}`}</span>
+        <span className={"text-[12px] block text-gray-500 font-bold"}>
+          {priceInLiters}
+        </span>
       </motion.p>
     </AnimatePresence>
   );

@@ -9,6 +9,7 @@ import {
 } from "../../ui/carousel";
 import hero_background from "@/src/hero-background.jpg";
 import Link from "next/link";
+import Autoplay from "embla-carousel-autoplay";
 
 type heroCarouselProps = {
   products: any;
@@ -16,7 +17,7 @@ type heroCarouselProps = {
 
 export default function HeroCarousel({ products }: heroCarouselProps) {
   return (
-    <Carousel className={"relative"}>
+    <Carousel plugins={[Autoplay({ delay: 3000 })]} className={"relative"}>
       <CarouselContent className={"h-[750px]"}>
         {products.map((product: any, index: number) => (
           <CarouselItem key={index}>

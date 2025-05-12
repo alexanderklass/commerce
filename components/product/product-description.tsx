@@ -7,6 +7,7 @@ import { VariantSelector } from "./variant-selector";
 import ProductAmountCounter from "./productAmountCounter";
 import StandardInfo from "./standardInfo";
 import DropDownMenu from "./drop-down-menu";
+import Link from "next/link";
 
 export function ProductDescription({
   product,
@@ -16,7 +17,7 @@ export function ProductDescription({
   featuredProduct?: boolean;
 }) {
   const [selectedPrice, setSelectedPrice] = useState(
-    product.priceRange.maxVariantPrice.amount,
+    product.priceRange.minVariantPrice.amount,
   );
   const [quantityCounter, setQuantityCounter] = useState(1);
   const splitDescription = product.description?.split(";");
@@ -25,19 +26,50 @@ export function ProductDescription({
   const ingredients = splitDescription[2];
   const sustainability = splitDescription[3];
   const warnings = splitDescription[4];
+
+  const pricePerLiter = () => {
+    const currentVariant = product.variants.find(
+      (variant) => variant.price.amount === selectedPrice,
+    );
+    if (!currentVariant?.title) return null;
+    const mlMatch = currentVariant.title.split(" ");
+    const mlAvailable = mlMatch[1];
+    if (mlAvailable !== "ml") return null;
+    const ml = mlMatch[0];
+    if (!ml) return null;
+    const mlAmount = parseInt(ml);
+    const price = (Number(selectedPrice) / mlAmount) * 1000;
+    return price.toFixed(2) + "€ / 1 l, inkl. MwSt.";
+  };
+  const pricerInLiters = pricePerLiter();
+
+  //TODO Create own component for this
+  const splitTitle = product.title.split("|");
+  const collectionTitle = splitTitle[0];
+  const URL = `/search/${collectionTitle.toLowerCase().trim()}`;
+
   return (
     <div>
       <div className="flex flex-col">
-        <h1 className="mb-2 text-black text-3xl font-medium">
-          {product.title}
-        </h1>
+        <div>
+          <Link
+            className={"text-gray-500 underline underline-offset-2"}
+            href={URL}
+          >
+            {collectionTitle}
+          </Link>
+          <h1 className="mb-2 mt-2 text-black text-3xl font-medium">
+            {product.title}
+          </h1>
+        </div>
         <div className="mr-auto mb-5 relative w-auto text-lg font-bold text-black">
           <Price
+            priceInLiters={pricerInLiters}
             amount={selectedPrice}
             currencyCode={product.priceRange.maxVariantPrice.currencyCode}
           />
         </div>
-        <div className={"text-gray-700"}>{productIntro}</div>
+        <div className={"text-gray-700 mb-5"}>{productIntro}</div>
       </div>
       <VariantSelector
         options={product.options}
