@@ -16,7 +16,7 @@ export default function ProductAmountCounter({
 }: ProductAmountCounterProps) {
   const [animationValue, setAnimationValue] = useState(true);
 
-  //TODO implement max amount from product availability
+  //TODO implement max amount from product availability.
   const countUp = () => {
     handleAmountChange((prevState: number) => prevState + 1);
     setAnimationValue(true);
