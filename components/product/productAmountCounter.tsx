@@ -14,7 +14,7 @@ export default function ProductAmountCounter({
   quantity,
   availableForSale,
 }: ProductAmountCounterProps) {
-  const [animationValue, setAnimationValue] = useState(false);
+  const [animationValue, setAnimationValue] = useState(true);
 
   //TODO implement max amount from product availability
   const countUp = () => {
