@@ -7,7 +7,8 @@ import { VariantSelector } from "./variant-selector";
 import ProductAmountCounter from "./productAmountCounter";
 import StandardInfo from "./standardInfo";
 import DropDownMenu from "./drop-down-menu";
-import Link from "next/link";
+import CollectionTitle from "@/components/product/collectionTitle";
+import PayMethodsBanner from "@/components/product/PayMethodsBanner";
 
 export function ProductDescription({
   product,
@@ -31,33 +32,23 @@ export function ProductDescription({
     const currentVariant = product.variants.find(
       (variant) => variant.price.amount === selectedPrice,
     );
+
     if (!currentVariant?.title) return null;
-    const mlMatch = currentVariant.title.split(" ");
-    const mlAvailable = mlMatch[1];
-    if (mlAvailable !== "ml") return null;
-    const ml = mlMatch[0];
-    if (!ml) return null;
-    const mlAmount = parseInt(ml);
+
+    const match = currentVariant.title.match(/(\d+)ml/);
+    if (!match) return null;
+    const mlAmount = parseInt(match[1] || "0");
     const price = (Number(selectedPrice) / mlAmount) * 1000;
     return price.toFixed(2) + "€ / 1 l, inkl. MwSt.";
   };
-  const pricerInLiters = pricePerLiter();
 
-  //TODO Create own component for this
-  const splitTitle = product.title.split("|");
-  const collectionTitle = splitTitle[0];
-  const URL = `/search/${collectionTitle.toLowerCase().trim()}`;
+  const pricerInLiters = pricePerLiter();
 
   return (
     <div>
       <div className="flex flex-col">
         <div>
-          <Link
-            className={"text-gray-500 underline uppercase underline-offset-2"}
-            href={URL}
-          >
-            {collectionTitle}
-          </Link>
+          <CollectionTitle title={product.title} />
           <h1 className="mb-2 mt-2 text-black text-3xl font-medium">
             {product.title}
           </h1>
@@ -85,6 +76,7 @@ export function ProductDescription({
         <AddToCart quantity={quantityCounter} product={product} />
       </div>
       <StandardInfo />
+      <PayMethodsBanner />
       <div className={`${featuredProduct && "hidden"} flex flex-col gap-y-5`}>
         <DropDownMenu title={"Duftnote"}>{productDetails}</DropDownMenu>
         <DropDownMenu title={"Inhaltsstoffe"}>{ingredients}</DropDownMenu>

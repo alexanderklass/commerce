@@ -12,7 +12,7 @@ export default function StandardInfo() {
   return (
     <div
       className={
-        "text-gray-700 my-10 gap-y-2 flex flex-col items-start justify-center"
+        "text-gray-700 my-5 gap-y-2 flex flex-col items-start justify-center"
       }
     >
       <StandardInfoCheckmark notChecked={freeShipping} text={shippingText} />
