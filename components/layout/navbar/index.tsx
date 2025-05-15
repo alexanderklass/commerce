@@ -34,7 +34,11 @@ export async function Navbar() {
           <div className="flex">
             {menu.length ? <NavHoverMenu menuList={menu} /> : null}
           </div>
-          <Search />
+          <div>
+            <Suspense fallback={null}>
+              <Search />
+            </Suspense>
+          </div>
           <div className={"flex flex-row gap-x-3"}>
             <button
               className={"hover:scale-110 cursor-pointer transition-all"}
