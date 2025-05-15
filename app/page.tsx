@@ -3,6 +3,7 @@ import { Categories } from "@/components/content/home/categories";
 import { News } from "@/components/content/home/news";
 import OrderBenefits from "@/components/content/home/orderBenefits";
 import FeaturedProducts from "@/components/content/home/featuredProducts";
+import Faq from "@/components/content/home/FAQ";
 
 export const metadata = {
   description:
@@ -20,6 +21,7 @@ export default function HomePage() {
       <OrderBenefits />
       <FeaturedProducts/>
       <News />
+      <Faq/>
     </div>
   );
 }

@@ -5,12 +5,14 @@ import Link from "next/link";
 import { Suspense } from "react";
 import MobileMenu from "./mobile-menu";
 import NavHoverMenu from "@/components/layout/navbar/nav-hover-menu";
+import Search from "@/components/layout/navbar/search";
+import { Search as SearchIcon, UserRound } from "lucide-react";
 const { SITE_NAME } = process.env;
 
 export async function Navbar() {
   const menu = await getMenu("main-menu");
   return (
-    <nav className="sticky top-0 z-20 left-0 right-0 bg-white flex w-full items-center justify-center text-black p-4 lg:px-6">
+    <nav className="sticky top-0 z-20 left-0 right-0 bg-white flex w-full items-center justify-center text-black p-1 lg:px-6">
       <div className={"flex items-center sm:w-[1400px] justify-between"}>
         <div className="block flex-none md:hidden">
           <Suspense fallback={null}>
@@ -32,7 +34,14 @@ export async function Navbar() {
           <div className="flex">
             {menu.length ? <NavHoverMenu menuList={menu} /> : null}
           </div>
-          <div className="flex">
+          <Search />
+          <div className={"flex flex-row gap-x-3"}>
+            <button
+              className={"hover:scale-110 cursor-pointer transition-all"}
+              aria-label="Open user menu"
+            >
+              <UserRound className="h-7" />
+            </button>
             <CartModal />
           </div>
         </div>

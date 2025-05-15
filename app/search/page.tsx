@@ -81,12 +81,8 @@ export default async function SearchPage(props: {
     <>
       {searchValue ? (
         <p className="mb-4">
-          {products.length === 0
-            ? "There are no products that match "
-            : `Showing ${products.length} ${resultsText} for `}
-          {searchValue && (
-            <span className="font-bold">&quot;{searchValue}&quot;</span>
-          )}
+          {products.length === 0 &&
+            `Keine Produkte gefunden mit "${searchValue}"`}
         </p>
       ) : null}
       {products.length > 0 ? (

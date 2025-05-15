@@ -11,7 +11,7 @@ const Price = ({
   className?: string;
   currencyCode: string;
   currencyCodeClassName?: string;
-  priceInLiters: string | null;
+  priceInLiters?: string | null;
 } & React.ComponentProps<"p">) => {
   return (
     <AnimatePresence mode={"wait"} initial={false}>

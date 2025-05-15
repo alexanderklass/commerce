@@ -9,6 +9,8 @@ import StandardInfo from "./standardInfo";
 import DropDownMenu from "./drop-down-menu";
 import CollectionTitle from "@/components/product/collectionTitle";
 import PayMethodsBanner from "@/components/product/PayMethodsBanner";
+import StockStatusIndicator from "@/components/product/stockStatusIndicator";
+import GiftProgressBar from "@/components/product/giftProgressBar";
 
 export function ProductDescription({
   product,
@@ -20,6 +22,9 @@ export function ProductDescription({
   const [selectedPrice, setSelectedPrice] = useState(
     product.priceRange.minVariantPrice.amount,
   );
+  const [selectedVariantInStock, setSelectedVariantInStock] = useState<
+    null | boolean
+  >(null);
   const [quantityCounter, setQuantityCounter] = useState(1);
   const splitDescription = product.description?.split(";");
   const productIntro = splitDescription[0];
@@ -63,10 +68,12 @@ export function ProductDescription({
         <div className={"text-gray-700 mb-5"}>{productIntro}</div>
       </div>
       <VariantSelector
+        selectedVariantInStock={setSelectedVariantInStock}
         options={product.options}
         setCurrentPrice={setSelectedPrice}
         variants={product.variants}
       />
+      <StockStatusIndicator inStock={selectedVariantInStock} />
       <div className="flex flex-row gap-x-3">
         <ProductAmountCounter
           availableForSale={product.availableForSale}
