@@ -36,7 +36,7 @@ export default function DropDownMenu({ title, children }: DropDownMenuProps) {
             transition={{ duration: 0.2 }}
             className="text-gray-700 text-sm"
           >
-            <p>{children}</p>
+            {children}
           </motion.div>
         )}
       </AnimatePresence>

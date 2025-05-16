@@ -6,7 +6,7 @@ import { Suspense } from "react";
 import MobileMenu from "./mobile-menu";
 import NavHoverMenu from "@/components/layout/navbar/nav-hover-menu";
 import Search from "@/components/layout/navbar/search";
-import { Search as SearchIcon, UserRound } from "lucide-react";
+import { UserRound } from "lucide-react";
 const { SITE_NAME } = process.env;
 
 export async function Navbar() {
