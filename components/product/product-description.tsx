@@ -1,15 +1,15 @@
 "use client";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { AddToCart } from "components/cart/add-to-cart";
 import Price from "components/price";
 import { Product } from "lib/shopify/types";
 import { VariantSelector } from "./variant-selector";
 import ProductAmountCounter from "./productAmountCounter";
 import StandardInfo from "./standardInfo";
-import DropDownMenu from "./drop-down-menu";
 import CollectionTitle from "@/components/product/collectionTitle";
 import PayMethodsBanner from "@/components/product/PayMethodsBanner";
 import StockStatusIndicator from "@/components/product/stockStatusIndicator";
+import ProductInformation from "@/components/product/product-information";
 
 export function ProductDescription({
   product,
@@ -25,41 +25,13 @@ export function ProductDescription({
     null | boolean
   >(null);
   const [quantityCounter, setQuantityCounter] = useState(1);
-  const splitDescription = product.description?.split(";");
-  const productIntro = splitDescription[0];
-  const productDetails = splitDescription[1];
-  const ingredients = splitDescription[2];
-  const sustainability = splitDescription[3];
-  const warnings = splitDescription[4];
-
-  //TODO Convert to own component
-  const kopfMatch = productDetails.match(/Kopfnote:\s*(.+?)(?=\s*Herznote:|$)/);
-  const herzMatch = productDetails.match(
-    /Herznote:\s*(.+?)(?=\s*Basisnote:|$)/,
-  );
-  const basisMatch = productDetails.match(/Basisnote:\s*(.+)$/);
-
-  const formatiereDuftkomponenten = (
-    art: string,
-    komponenten: string | undefined,
-  ) => {
-    if (!komponenten) return "";
-    const duftstoffe = komponenten
-      .split("-")
-      .map((k) => k.trim())
-      .filter(Boolean)
-      .join(" - ");
-    return `${art}: ${duftstoffe}`;
-  };
-  //TODO
+  const productIntro = product.description?.split(";")[0];
 
   const pricePerLiter = () => {
     const currentVariant = product.variants.find(
       (variant) => variant.price.amount === selectedPrice,
     );
-
     if (!currentVariant?.title) return null;
-
     const match = currentVariant.title.match(/(\d+)ml/);
     if (!match) return null;
     const mlAmount = parseInt(match[1] || "0");
@@ -105,18 +77,9 @@ export function ProductDescription({
       <StandardInfo />
       <PayMethodsBanner />
       <div className={`${featuredProduct && "hidden"} flex flex-col gap-y-5`}>
-        <DropDownMenu title={"Duftnote"}>
-          <ul className="flex flex-col gap-y-2 list-disc pl-4">
-            <li>{formatiereDuftkomponenten("Kopfnote", kopfMatch?.[1])}</li>
-            <li>{formatiereDuftkomponenten("Herznote", herzMatch?.[1])}</li>
-            <li>{formatiereDuftkomponenten("Basisnote", basisMatch?.[1])}</li>
-          </ul>
-        </DropDownMenu>
-        <DropDownMenu title={"Inhaltsstoffe"}>{ingredients}</DropDownMenu>
-        <DropDownMenu title={"Zusätzliche Produktinformationen"}>
-          {sustainability}
-        </DropDownMenu>
-        <DropDownMenu title={"Warnhinweise"}>{warnings}</DropDownMenu>
+        <Suspense fallback={null}>
+          <ProductInformation description={product.description} />
+        </Suspense>
       </div>
     </div>
   );
