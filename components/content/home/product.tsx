@@ -1,31 +1,21 @@
 "use client";
-import Image from "next/image";
-import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import ProductImage from "@/components/content/home/product-image";
+import Price from "@/components/price";
+import ProductQuickBuySelect from "@/components/content/home/product-quickbuy-select";
+import ProductQuickBuyAddToCart from "@/components/content/home/product-quickbuy-add-to-cart";
 import { useState } from "react";
-import placeholder from "@/src/placeholder.png";
-
 type newProductProps = {
   product: any;
   newProduct?: boolean;
 };
 
 export default function Product({ product, newProduct }: newProductProps) {
-  //TODO Implement quick buy function
-  const [hoveredImage, setHoveredImage] = useState(product.featuredImage?.url);
-
-  const handleOnMouseLeave = () => {
-    setHoveredImage(product.featuredImage?.url);
-  };
-  const handleImageChangeOnHover = () => {
-    if (product.images.length > 1) {
-      setHoveredImage(product.images[1]?.url);
-    }
-  };
+  //TODO integrate handle price by change of variant
+  const [selectedVariant, setSelectedVariant] = useState(product.variants[0]);
   return (
     <div
       className={
-        "rounded-lg w-full relative bg-white overflow-hidden hover:-translate-y-5 hover:shadow-xl transition-all duration-300 shadow-lg"
+        "rounded-lg w-full relative bg-white overflow-hidden hover:shadow-lg transition-all duration-300 shadow-md"
       }
     >
       <p
@@ -33,49 +23,26 @@ export default function Product({ product, newProduct }: newProductProps) {
       >
         Neu
       </p>
-      <div
-        onMouseEnter={handleImageChangeOnHover}
-        onMouseLeave={handleOnMouseLeave}
-        className={`relative h-[300px] bg-gray-200`}
-      >
-        <Link href={`/product/${product.handle}`}>
-          <AnimatePresence>
-            <motion.div
-              key={hoveredImage || placeholder}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Image
-                className={`object-cover transition-all duration-300`}
-                fill
-                src={hoveredImage || placeholder}
-                alt={`${product.handle}`}
-              />
-            </motion.div>
-          </AnimatePresence>
-        </Link>
-      </div>
+      <ProductImage product={product} />
       <div
         className={
-          "flex w-full min-h-[150px] text-black p-4 justify-between flex-col"
+          "flex w-full min-h-[180px] p-4 text-black justify-between items-center flex-col"
         }
       >
-        <div className={"flex flex-col gap-y-1"}>
-          <p>{product.title}</p>
-        </div>
-        <div className={"w-full flex flex-row justify-between items-center"}>
-          <p className={"font-bold"}>
-            {product.priceRange.minVariantPrice.amount} €
-          </p>
-          <button
-            className={
-              "rounded-md hover:bg-gray-200 transition-all duration-300 px-4 py-2 cursor-pointer"
-            }
-          >
-            + Hinzufügen
-          </button>
+        <p>{product.title}</p>
+        <div className={"w-full flex flex-col gap-y-4"}>
+          <ProductQuickBuySelect
+            selectedVariant={selectedVariant}
+            setSelectedVariant={setSelectedVariant}
+            product={product}
+          />
+          <div className={"w-full flex flex-row justify-between items-center"}>
+            <Price
+              amount={product.priceRange.minVariantPrice.amount}
+              currencyCode={product.priceRange.minVariantPrice.currencyCode}
+            />
+            <ProductQuickBuyAddToCart selectedVariant={selectedVariant} />
+          </div>
         </div>
       </div>
     </div>
