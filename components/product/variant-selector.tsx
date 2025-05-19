@@ -44,7 +44,7 @@ export function VariantSelector({
   }));
 
   const firstOption = options[0];
-  if (!firstOption) return;
+  if (!firstOption) return null;
   const modifiedOptions = [
     {
       ...firstOption,

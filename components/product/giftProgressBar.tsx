@@ -1,20 +1,18 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useCart } from "../cart/cart-context";
-import { motion, useAnimation } from "framer-motion";
 
 export default function GiftProgressBar() {
   const cart = useCart();
   const cartTotal = cart.cart?.cost?.totalAmount?.amount;
-  const controls = useAnimation();
   const giftOptions = [
-    {
-      title: "Gratisversand!",
-      text: "bis zum Gratisversand!",
-      value: 30,
-    },
     {
       title: "1ml Gratisprobe!",
       text: "bis zur 1ml Gratisprobe!",
+      value: 30,
+    },
+    {
+      title: "Gratisversand!",
+      text: "bis zum Gratisversand!",
       value: 50,
     },
     {

@@ -18,7 +18,6 @@ export default function ProductQuickBuyAddToCart({
     });
   };
 
-  //TODO add status of not available for sale button
   return (
     <form
       aria-disabled={!selectedVariant.availableForSale}
@@ -26,7 +25,7 @@ export default function ProductQuickBuyAddToCart({
     >
       <button
         disabled={!selectedVariant.availableForSale}
-        className={`disabled:bg-gray-500 rounded-md hover:bg-sky-600 bg-sky-500 text-white disabled:cursor-not-allowed transition-all duration-300 px-3 py-1.5 cursor-pointer`}
+        className={`disabled:bg-gray-100 rounded-md hover:bg-sky-700 bg-sky-600 text-white disabled:text-black disabled:cursor-not-allowed transition-all duration-300 px-3 py-1.5 cursor-pointer`}
       >
         {selectedVariant.availableForSale ? (
           <p>+ Hinzufügen</p>

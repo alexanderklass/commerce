@@ -11,7 +11,19 @@ type newProductProps = {
 
 export default function Product({ product, newProduct }: newProductProps) {
   //TODO integrate handle price by change of variant
-  const [selectedVariant, setSelectedVariant] = useState(product.variants[0]);
+  const handleVariantStartUpValue = () => {
+    const filterByAvailable = product.variants.filter((variant: any) => {
+      return variant.availableForSale === true;
+    });
+    if (filterByAvailable.length === 0) return product.variants[0];
+    return filterByAvailable[0];
+  };
+  const [selectedVariant, setSelectedVariant] = useState(
+    handleVariantStartUpValue(),
+  );
+  const [selectedVariantPrice, setSelectedVariantPrice] = useState(
+    product.priceRange.minVariantPrice.amount,
+  );
   return (
     <div
       className={
@@ -26,19 +38,20 @@ export default function Product({ product, newProduct }: newProductProps) {
       <ProductImage product={product} />
       <div
         className={
-          "flex w-full min-h-[180px] p-4 text-black justify-between items-center flex-col"
+          "flex w-full min-h-[180px] p-4 text-black justify-between flex-col"
         }
       >
         <p>{product.title}</p>
         <div className={"w-full flex flex-col gap-y-4"}>
           <ProductQuickBuySelect
+            setSelectedVariantPrice={setSelectedVariantPrice}
             selectedVariant={selectedVariant}
             setSelectedVariant={setSelectedVariant}
             product={product}
           />
           <div className={"w-full flex flex-row justify-between items-center"}>
             <Price
-              amount={product.priceRange.minVariantPrice.amount}
+              amount={selectedVariantPrice}
               currencyCode={product.priceRange.minVariantPrice.currencyCode}
             />
             <ProductQuickBuyAddToCart selectedVariant={selectedVariant} />
