@@ -24,7 +24,7 @@ function ProductImage({ product }: ProductImageProps) {
     <div
       onMouseEnter={handleImageChangeOnHover}
       onMouseLeave={handleOnMouseLeave}
-      className={`relative h-[300px] bg-gray-50`}
+      className={`relative h-[250px] bg-gray-50`}
     >
       <Link href={`/product/${product.handle}`}>
         <AnimatePresence>
@@ -36,9 +36,13 @@ function ProductImage({ product }: ProductImageProps) {
             transition={{ duration: 0.3 }}
           >
             <Image
-              className={`object-contain transition-all duration-300`}
+              className={`object-cover transition-all duration-300`}
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              loading="lazy"
+              placeholder="blur"
               src={hoveredImage || placeholder}
+              blurDataURL={`data:image/svg+xml;base64,${placeholder}`}
               alt={`${product.handle}`}
             />
           </motion.div>
