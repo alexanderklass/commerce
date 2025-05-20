@@ -1,6 +1,6 @@
 import React from "react";
 import { useCart } from "../cart/cart-context";
-
+import { CircleCheck } from "lucide-react";
 export default function GiftProgressBar() {
   const cart = useCart();
   const cartTotal = cart.cart?.cost?.totalAmount?.amount;
@@ -42,13 +42,18 @@ export default function GiftProgressBar() {
         }
       >
         {isDone ? (
-          <p>{title}</p>
+          <div className={"flex flex-row items-center justify-between"}>
+            <p className={"font-bold"}>{title}</p>
+            <CircleCheck className={"ml-2 text-sky-500"} size={18} />
+          </div>
         ) : (
-          <p className={"mb-2"}>
+          <p className={"mb-2 font-bold"}>
             Dir fehlen noch {valueDif.toFixed(2)}€ EUR {text}
           </p>
         )}
-        <div className={"h-1.5 relative bg-sky-200 rounded-full w-full"}>
+        <div
+          className={`${isDone && "hidden"} h-1.5 relative bg-sky-200 rounded-full w-full`}
+        >
           <div
             style={{ width: `${progress}%` }}
             className={`absolute top-0 left-0 bottom-0 bg-blue-500 rounded-full`}
@@ -59,7 +64,7 @@ export default function GiftProgressBar() {
   };
 
   return (
-    <div className={"flex flex-col gap-y-3 my-5"}>
+    <div className={"flex flex-col gap-y-1 my-5"}>
       {giftOptions.map((giftOption, index) => {
         const cartTotalNumber = Number(cartTotal);
         const missingValue = giftOption.value - Number(cartTotalNumber);
