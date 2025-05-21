@@ -38,20 +38,24 @@ export default function PayMethodsBanner() {
         width={48}
         height={32}
       />
-      <Image
-        className={"w-12 h-8 object-contain"}
-        src={paypal}
-        alt="PayPal"
-        width={48}
-        height={32}
-      />
-      <Image
-        className={"w-12 h-8 object-contain"}
-        src={googlePay}
-        alt="Google Pay"
-        width={48}
-        height={32}
-      />
+      <div className={"bg-white rounded-sm"}>
+        <Image
+          className={"w-12 h-8 object-contain"}
+          src={paypal}
+          alt="PayPal"
+          width={48}
+          height={32}
+        />
+      </div>
+      <div className={"bg-white rounded-sm"}>
+        <Image
+          className={"w-12 h-8 object-contain"}
+          src={googlePay}
+          alt="Google Pay"
+          width={48}
+          height={32}
+        />
+      </div>
       <Image
         className={"w-12 h-8 object-contain"}
         src={klarna}

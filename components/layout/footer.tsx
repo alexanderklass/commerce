@@ -1,8 +1,20 @@
+import FooterNewsletter from "@/components/layout/footer-newsletter";
+import FooterLegal from "./footer-legal";
+import { FooterLinks } from "./footer-links";
+import PayMethodsBanner from "@/components/product/PayMethodsBanner";
+import FooterSocialMedia from "@/components/layout/footer-socialmedia";
+
 export default async function Footer() {
   return (
-    <footer className="text-sm bg-[#343E31] w-full text-white dark:text-neutral-400">
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 border-t border-neutral-200 px-6 py-12 text-sm md:flex-row md:gap-12 md:px-4 min-[1320px]:px-0 dark:border-neutral-700">
-        {/*footer*/}
+    <footer className="relative text-sm bg-[#343E31] w-full text-white">
+      <div className="mx-auto flex w-[1400px] py-12 flex-row justify-between border-t border-neutral-200 text-sm">
+        <FooterNewsletter />
+        <FooterLegal />
+        <FooterLinks />
+        <div className="absolute bottom-1 right-5">
+          <PayMethodsBanner />
+        </div>
+        <FooterSocialMedia/>
       </div>
     </footer>
   );
