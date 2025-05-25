@@ -27,7 +27,7 @@ export default function OrderBenefits() {
           />
           <OrderBenefitsItem
             icon={<CreditCard size={iconSize} className={iconStyle} />}
-            text={"Zahlen mit Paypal & Klara"}
+            text={"Zahlen mit Paypal & Klarna"}
             title={"Sichere zahlung"}
           />
           <OrderBenefitsItem
@@ -35,7 +35,7 @@ export default function OrderBenefits() {
               <MessageCircleQuestion size={iconSize} className={iconStyle} />
             }
             text={"Schnelle Hilfe bei Fragen "}
-            title={"Erstklassiker Support"}
+            title={"Erstklassiger Support"}
           />
         </div>
       </div>

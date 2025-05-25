@@ -1,15 +1,9 @@
-"use client";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../../ui/select";
-import { usePathname, useSearchParams } from "next/navigation";
-import { createUrl } from "@/lib/utils";
-import { useRouter } from "next/navigation";
-import type { SortFilterItem } from "@/lib/constants";
+'use client';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../ui/select';
+import { usePathname, useSearchParams } from 'next/navigation';
+import { createUrl } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
+import type { SortFilterItem } from '@/lib/constants';
 
 type SortBy = {
   list: SortFilterItem[];
@@ -19,8 +13,10 @@ function SelectSortBy({ list }: SortBy) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const q = searchParams.get("q");
-  const filters = searchParams.getAll("filter");
+  const q = searchParams.get('q');
+  const filters = searchParams.getAll('filter');
+
+  console.log(list);
 
   const handleValueChange = (selectedSlug: string) => {
     const selectedItem = list.find((item) => item.slug === selectedSlug);
@@ -28,12 +24,12 @@ function SelectSortBy({ list }: SortBy) {
 
     const newParams = new URLSearchParams();
 
-    if (q) newParams.append("q", q);
+    if (q) newParams.append('q', q);
 
-    if (selectedSlug) newParams.append("sort", selectedSlug);
+    if (selectedSlug) newParams.append('sort', selectedSlug);
 
     filters.forEach((filter) => {
-      newParams.append("filter", filter);
+      newParams.append('filter', filter);
     });
 
     const href = createUrl(pathname, newParams);
@@ -41,14 +37,11 @@ function SelectSortBy({ list }: SortBy) {
   };
 
   return (
-    <Select
-      value={searchParams.get("sort") || ""}
-      onValueChange={(value: any) => handleValueChange(value)}
-    >
-      <SelectTrigger className={"w-[180px] text-md"}>
-        <SelectValue placeholder={"Sortieren nach"} />
+    <Select value={searchParams.get('sort') || ''} onValueChange={(value: any) => handleValueChange(value)}>
+      <SelectTrigger className={'text-md w-[180px]'}>
+        <SelectValue placeholder={'Sortieren nach'} />
       </SelectTrigger>
-      <SelectContent className={"text-lg"}>
+      <SelectContent className={'text-lg'}>
         {list.map((item: any) => (
           <SelectItem key={item.title} value={item.slug}>
             {item.title}
