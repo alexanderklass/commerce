@@ -1,15 +1,14 @@
-import { Hero } from "@/components/content/home/hero";
-import { Categories } from "@/components/content/home/categories";
-import { News } from "@/components/content/home/news";
-import OrderBenefits from "@/components/content/home/orderBenefits";
-import FeaturedProducts from "@/components/content/home/featuredProducts";
-import Faq from "@/components/content/home/FAQ";
+import { Hero } from '@/components/content/home/hero';
+import { Categories } from '@/components/content/home/categories';
+import { News } from '@/components/content/home/news';
+import OrderBenefits from '@/components/content/home/orderBenefits';
+import Faq from '@/components/content/home/FAQ';
+import { FeaturedProductList } from '@/components/content/home/featuredProductList';
 
 export const metadata = {
-  description:
-    "High-performance ecommerce store built with Next.js, Vercel, and Shopify.",
+  description: 'High-performance ecommerce store built with Next.js, Vercel, and Shopify.',
   openGraph: {
-    type: "website",
+    type: 'website',
   },
 };
 
@@ -19,9 +18,9 @@ export default function HomePage() {
       <Hero />
       <Categories />
       <OrderBenefits />
-      <FeaturedProducts/>
+      <FeaturedProductList />
       <News />
-      <Faq/>
+      <Faq />
     </div>
   );
 }

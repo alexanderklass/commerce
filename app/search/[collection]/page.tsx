@@ -2,9 +2,8 @@ import { getCollection, getCollectionProducts } from 'lib/shopify';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import Grid from 'components/grid';
 import { defaultSort, sorting } from 'lib/constants';
-import Product from '@/components/content/home/product';
+import PaginationProducts from '@/components/layout/search/paginationProducts';
 
 export const dynamic = 'force-static';
 export const revalidate = false;
@@ -39,11 +38,7 @@ export default async function CategoryPage(props: {
       {products.length === 0 ? (
         <p className="py-3 text-lg">{`No products found in this collection`}</p>
       ) : (
-        <Grid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          {products.map((product) => (
-            <Product key={product.handle} product={product} />
-          ))}
-        </Grid>
+        <PaginationProducts products={products} />
       )}
     </section>
   );

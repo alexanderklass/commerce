@@ -16,8 +16,6 @@ function SelectSortBy({ list }: SortBy) {
   const q = searchParams.get('q');
   const filters = searchParams.getAll('filter');
 
-  console.log(list);
-
   const handleValueChange = (selectedSlug: string) => {
     const selectedItem = list.find((item) => item.slug === selectedSlug);
     if (!selectedItem) return;
