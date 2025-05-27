@@ -10,9 +10,9 @@ export default function ProductQuickBuyAddToCart({
 }: ProductQuickBuyAddToCartProps) {
   const [message, formAction] = useActionState(addItem, null);
   const handleSubmit = async () => {
-    if (!selectedVariant?.id) return;
+    if (!selectedVariant.id) return;
     formAction({
-      selectedVariantId: selectedVariant?.id,
+      selectedVariantId: selectedVariant.id,
       quantity: 1,
     });
   };

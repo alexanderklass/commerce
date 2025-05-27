@@ -52,7 +52,6 @@ export default function ProductQuickBuySelect({
         const variant = variantItems.find((v: any) => v.id === variantId);
         if (variant) {
           setSelectedVariant(variant);
-          console.log(variant);
           setSelectedVariantPrice(variant.price.amount);
         }
       }}

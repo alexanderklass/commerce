@@ -48,7 +48,6 @@ export function EditItemQuantityButton({
   return (
     <form
       action={async () => {
-        console.log(payload);
         optimisticUpdate(payload.merchandiseId, type);
         updateItemQuantityAction();
       }}
