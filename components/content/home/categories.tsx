@@ -13,8 +13,7 @@ export async function Categories() {
     );
   });
   return (
-    <section className={'flex w-full flex-col items-center justify-center gap-y-10 bg-gray-100 py-16'}>
-      <p className={'text-center text-4xl font-bold text-black'}>KAUFE NACH KATEGORIE</p>
+    <section className={'flex w-full flex-col items-center justify-center bg-gray-100 py-10'}>
       <div className={'flex w-[1400px] flex-row items-center justify-center gap-x-5'}>
         {filteredCategories.map((category, index) => {
           return (

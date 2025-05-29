@@ -7,13 +7,7 @@ import Price from "../../price";
 import { Product } from "@/lib/shopify/types";
 import ProductQuickBuyAddToCart from "@/components/content/home/product-quickbuy-add-to-cart";
 
-export default function FeaturedProduct({
-  product,
-  index,
-}: {
-  product: Product;
-  index: number;
-}) {
+export default function FeaturedProduct({ product }: { product: Product }) {
   const [selectedPrice, setSelectedPrice] = useState(
     product.priceRange.minVariantPrice.amount,
   );
@@ -47,17 +41,14 @@ export default function FeaturedProduct({
           "flex w-[1400px] flex-col items-center justify-center gap-y-10"
         }
       >
-        <p className={"mb-10 text-4xl font-bold"}>VORGESTELLTE PRODUKTE</p>
         <div
           key={product.handle}
-          className={`${index === 0 ? "flex-row-reverse" : "flex-row"} relative flex w-full items-center justify-evenly gap-x-5 p-10 px-5`}
+          className={`flex-row relative flex w-full items-center justify-evenly gap-x-5 p-10 px-5`}
         >
           <div
-            className={`absolute h-full w-[80%] ${index === 0 ? "left-0" : "right-0"} rounded-xl bg-blue-500/10`}
+            className={`absolute h-full w-full left-0 rounded-xl bg-blue-500/10`}
           ></div>
-          <div
-            className={`${index === 0 ? "border-r-4" : "border-l-4"} z-10 border-sky-500`}
-          >
+          <div className={`border-r-4 z-10 border-sky-500`}>
             <Image
               className={"h-[500px] w-fit object-contain"}
               width={40}

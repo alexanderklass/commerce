@@ -6,6 +6,8 @@ import mastercard from "@/src/mastercard.svg";
 import visa from "@/src/visa.svg";
 import paypal from "@/src/paypal.png";
 import googlePay from "@/src/google-pay.png";
+import applePay from "@/src/apple-pay.png";
+import ShopPay from "@/src/Shop-Pay-logo.png";
 import amex from "@/src/american-express.svg";
 export default function PayMethodsBanner() {
   return (
@@ -51,6 +53,24 @@ export default function PayMethodsBanner() {
         <Image
           className={"w-12 h-8 object-contain"}
           src={googlePay}
+          alt="Google Pay"
+          width={48}
+          height={32}
+        />
+      </div>
+      <div className={"bg-white rounded-sm"}>
+        <Image
+          className={"w-12 px-1 h-8 object-contain"}
+          src={applePay}
+          alt="Google Pay"
+          width={48}
+          height={32}
+        />
+      </div>
+      <div className={"bg-white rounded-sm"}>
+        <Image
+          className={"w-12 px-1 h-8 object-contain"}
+          src={ShopPay}
           alt="Google Pay"
           width={48}
           height={32}

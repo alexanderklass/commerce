@@ -15,7 +15,6 @@ import { createCartAndSetCookie, redirectToCheckout } from "./actions";
 import { useCart } from "./cart-context";
 import { DeleteItemButton } from "./delete-item-button";
 import { EditItemQuantityButton } from "./edit-item-quantity-button";
-
 import OpenCart from "./open-cart";
 import GiftProgressBar from "@/components/product/giftProgressBar";
 

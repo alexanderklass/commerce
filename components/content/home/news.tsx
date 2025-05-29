@@ -18,27 +18,25 @@ export async function News() {
   if (!fourNewestProducts) return null;
   return (
     <section
-      className={
-        "w-full flex items-center justify-center flex-col gap-y-10 bg-gray-100 py-16"
-      }
+      className={"w-full flex items-center justify-center flex-col py-8"}
     >
       <div
         className={
           "w-[1400px] gap-y-10 flex flex-col items-start justify-center"
         }
       >
-        <div className={"flex w-full items-center justify-between"}>
-          <p className={"text-3xl font-bold text-black text-center"}>
+        <div className={"flex w-full flex-row items-center"}>
+          <p className={"text-4xl font-bold text-black text-center mx-auto"}>
             Neuheiten
           </p>
           <Link
-            className={"underline text-black underline-offset-3"}
+            className={"underline self-end text-black underline-offset-3"}
             href={"/search?sort=latest-desc"}
           >
             Alle anzeigen
           </Link>
         </div>
-        <div className={"flex flex-row gap-x-3"}>
+        <div className={"flex w-full flex-row gap-x-3"}>
           {fourNewestProducts.map((product, index) => {
             return (
               <NewsProduct newProduct={true} key={index} product={product} />
