@@ -65,7 +65,7 @@ export default function FeaturedProduct({
             className={`flex items-center justify-center bg-gray-200/20 w-full h-full`}
           >
             <Image
-              className={"z-20 w-full h-full object-contain"}
+              className={"w-full h-full object-contain"}
               width={40}
               height={40}
               src={product.featuredImage?.url || placeholder}
