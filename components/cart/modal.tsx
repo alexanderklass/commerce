@@ -17,6 +17,7 @@ import { DeleteItemButton } from "./delete-item-button";
 import { EditItemQuantityButton } from "./edit-item-quantity-button";
 import OpenCart from "./open-cart";
 import GiftProgressBar from "@/components/product/giftProgressBar";
+import Placeholder from "src/placeholder.png";
 
 type MerchandiseSearchParams = {
   [key: string]: string;
@@ -28,6 +29,14 @@ export default function CartModal() {
   const quantityRef = useRef(cart?.totalQuantity);
   const openCart = () => setIsOpen(true);
   const closeCart = () => setIsOpen(false);
+
+  /*
+  const alt =
+    item.merchandise.product.featuredImage.altText ||
+    item.merchandise.product.title;
+  
+  const src  = item.merchandise.product.featuredImage.url
+   */
 
   useEffect(() => {
     if (!cart) {
@@ -117,7 +126,7 @@ export default function CartModal() {
                           `/product/${item.merchandise.product.handle}`,
                           new URLSearchParams(merchandiseSearchParams),
                         );
-
+                        //TODO replace with alt and src on top
                         return (
                           <li
                             key={i}
@@ -136,14 +145,8 @@ export default function CartModal() {
                                     className="h-full w-full object-cover"
                                     width={64}
                                     height={64}
-                                    alt={
-                                      item.merchandise.product.featuredImage
-                                        .altText ||
-                                      item.merchandise.product.title
-                                    }
-                                    src={
-                                      item.merchandise.product.featuredImage.url
-                                    }
+                                    alt={"PLACEHOLDER"}
+                                    src={Placeholder}
                                   />
                                 </div>
                                 <Link
