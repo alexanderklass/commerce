@@ -24,9 +24,9 @@ export default function HomePage() {
       <BestSellerProducts />
       <News />
       <FlaconBenefit />
-      <SingleFeaturedProduct index={0} />
+      <SingleFeaturedProduct index={0} reverse={false} />
       <ShopBenefits />
-      <SingleFeaturedProduct index={1} />
+      <SingleFeaturedProduct index={1} reverse={true} />
       <Faq />
     </div>
   );

@@ -22,7 +22,7 @@ export default function StockStatusIndicator({
   return (
     <AnimatePresence>
       <div
-        className={`${inStock === null && "hidden"} animate-fade flex flex-row items-center gap-x-2 mb-5`}
+        className={`${inStock === null && "hidden"} animate-fade flex flex-row items-center gap-x-2 my-2`}
       >
         <PingIndicator inStock={inStock} />
         <div className={`${inStock ? "text-green-600" : "text-gray-500"}`}>

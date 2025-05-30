@@ -13,7 +13,9 @@ export default function CollectionTitle({ title }: CollectionTitleProps) {
   const URL = `/search/${modifiedURL.toLowerCase().trim()}`;
   return (
     <Link
-      className={"text-gray-500 underline uppercase underline-offset-2"}
+      className={
+        "bg-sky-100 transition-all text-sm hover:bg-sky-600 hover:text-white border font-bold px-2 py-0.5 rounded-full uppercase"
+      }
       href={URL}
     >
       {collectionTitle}

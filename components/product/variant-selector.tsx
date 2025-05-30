@@ -75,7 +75,7 @@ export function VariantSelector({
 
   return modifiedOptions.map((option) => (
     <form className={"text-black"} key={option.id}>
-      <dl className="mb-8">
+      <dl className="">
         <dt className="mb-2 text-sm font-bold tracking-wide uppercase">
           {option.name}
         </dt>

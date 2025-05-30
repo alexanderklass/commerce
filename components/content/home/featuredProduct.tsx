@@ -6,12 +6,22 @@ import CollectionTitle from "@/components/product/collectionTitle";
 import Price from "../../price";
 import { Product } from "@/lib/shopify/types";
 import ProductQuickBuyAddToCart from "@/components/content/home/product-quickbuy-add-to-cart";
-
-export default function FeaturedProduct({ product }: { product: Product }) {
+import PayMethodsBanner from "@/components/product/PayMethodsBanner";
+import StandardInfo from "@/components/product/standardInfo";
+import ProductAmountCounter from "@/components/product/productAmountCounter";
+import FeaturedProductToggleVariant from "@/components/content/home/featuredProductToggleVariant";
+import StockStatusIndicator from "@/components/product/stockStatusIndicator";
+export default function FeaturedProduct({
+  product,
+  reverse = false,
+}: {
+  product: Product;
+  reverse?: boolean;
+}) {
   const [selectedPrice, setSelectedPrice] = useState(
     product.priceRange.minVariantPrice.amount,
   );
-
+  const [productCounter, setProductCounter] = useState(1);
   const handleVariantStartUpValue = () => {
     const filterByAvailable = product.variants.filter((variant: any) => {
       return variant.availableForSale === true;
@@ -19,6 +29,9 @@ export default function FeaturedProduct({ product }: { product: Product }) {
     if (filterByAvailable.length === 0) return product.variants[0];
     return filterByAvailable[0];
   };
+  const [selectedVariant, setSelectedVariant] = useState(
+    handleVariantStartUpValue(),
+  );
 
   //TODO create helper
   const pricePerLiter = () => {
@@ -33,6 +46,9 @@ export default function FeaturedProduct({ product }: { product: Product }) {
     return price.toFixed(2) + "€ / 1 l, inkl. MwSt.";
   };
   const priceInLiter = pricePerLiter();
+
+  const productDescription = product.description.split(";")[0];
+
   if (!product) return null;
   return (
     <section className={"flex w-full items-center justify-center py-12"}>
@@ -43,37 +59,54 @@ export default function FeaturedProduct({ product }: { product: Product }) {
       >
         <div
           key={product.handle}
-          className={`flex-row relative flex w-full items-center justify-evenly gap-x-5 p-10 px-5`}
+          className={`${reverse ? "flex-row-reverse" : "flex-row"} flex w-full items-center gap-x-5 justify-between rounded-lg shadow-md bg-sky-100/20`}
         >
           <div
-            className={`absolute h-full w-full left-0 rounded-xl bg-blue-500/10`}
-          ></div>
-          <div className={`border-r-4 z-10 border-sky-500`}>
+            className={`flex items-center justify-center bg-gray-200/20 w-full h-full`}
+          >
             <Image
-              className={"h-[500px] w-fit object-contain"}
+              className={"z-20 w-full h-full object-contain"}
               width={40}
               height={40}
               src={product.featuredImage?.url || placeholder}
               alt={product.handle}
             />
           </div>
-          <div className={"z-10 w-[600px]"}>
-            <div>
+          <div className={"w-full flex flex-col gap-y-2 p-5"}>
+            <div className={"flex flex-col gap-y-1 items-start justify-center"}>
               <CollectionTitle title={product.title} />
-              <p>{product.title}</p>
+              <p className={"font-bold text-xl"}>{product.title}</p>
             </div>
-            <div>
+            <div className={"font-bold"}>
               <Price
                 priceInLiters={priceInLiter}
-                amount={product.priceRange.minVariantPrice.amount}
+                amount={selectedPrice}
                 currencyCode={product.priceRange.minVariantPrice.currencyCode}
               />
             </div>
-            <div>
+            <p className={"text-gray-600"}>{productDescription}</p>
+            <FeaturedProductToggleVariant
+              selectedVariantPrice={setSelectedPrice}
+              selectedVariant={selectedVariant}
+              setSelectedVariant={setSelectedVariant}
+              product={product}
+            />
+            <StockStatusIndicator
+              inStock={selectedVariant?.availableForSale || false}
+            />
+            <div className={"flex flex-row items-center gap-x-2"}>
+              <ProductAmountCounter
+                availableForSale={selectedVariant?.availableForSale || false}
+                handleAmountChange={setProductCounter}
+                quantity={productCounter}
+              />
               <ProductQuickBuyAddToCart
-                selectedVariant={handleVariantStartUpValue()}
+                quantity={productCounter}
+                selectedVariant={selectedVariant}
               />
             </div>
+            <StandardInfo />
+            <PayMethodsBanner />
           </div>
         </div>
       </div>
